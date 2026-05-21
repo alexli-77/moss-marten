@@ -1,4 +1,5 @@
 import type Database from 'better-sqlite3';
+import { CodexAgent } from '../agent/codex-agent.js';
 import { OpenAIAgent } from '../agent/openai-agent.js';
 import type { DiscordChannel } from '../channels/discord.js';
 import type { AppConfig } from '../config/schema.js';
@@ -27,7 +28,8 @@ export async function runWorkflow(
 
   const evidence = await collectEvidence(config, discord, channelId);
   const memory = readMemory(config.memory.long_term_path, config.memory.daily_dir, date);
-  const output = await new OpenAIAgent(config).run({ workflow, date, evidence, memory });
+  const agent = config.llm.provider === 'codex' ? new CodexAgent(config) : new OpenAIAgent(config);
+  const output = await agent.run({ workflow, date, evidence, memory });
 
   await discord.send(channelId, output);
   db.prepare('INSERT INTO workflow_runs (workflow, output) VALUES (?, ?)').run(workflow, output);

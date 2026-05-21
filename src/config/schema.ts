@@ -11,7 +11,7 @@ export const AppConfigSchema = z.object({
     timezone: z.string().default('UTC'),
   }),
   llm: z.object({
-    provider: z.literal('openai').default('openai'),
+    provider: z.enum(['openai', 'codex']).default('openai'),
     model: z.string().default('gpt-4.1-mini'),
   }),
   channels: z.record(
