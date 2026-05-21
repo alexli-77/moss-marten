@@ -16,6 +16,10 @@ export class DiscordChannel {
     await new Promise<void>((resolve) => this.client.once('ready', () => resolve()));
   }
 
+  async stop(): Promise<void> {
+    await this.client.destroy();
+  }
+
   async send(channelId: string, text: string): Promise<void> {
     const channel = await this.getTextChannel(channelId);
     await channel.send(text.slice(0, 1900));
