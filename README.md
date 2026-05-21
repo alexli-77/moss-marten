@@ -1,5 +1,9 @@
 # Moss Marten
 
+<p align="center">
+  <img src="docs/assets/moss-marten-logo-banner.png" alt="Moss Marten" width="700">
+</p>
+
 Moss Marten is a configurable daily workflow agent for personal planning and review. It runs as a small service, posts to a configured Discord channel, and helps a user keep a lightweight daily operating rhythm.
 
 It is intentionally generic. The repository does not include personal memory, tokens, channel IDs, private notes, or historical data.
