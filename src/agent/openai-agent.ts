@@ -43,6 +43,8 @@ export class OpenAIAgent {
           content: JSON.stringify(
             {
               task: workflowPrompt,
+              missing_source_policy:
+                'For Missing Sources, use only evidence.missing_sources and evidence.source_status from this run. Ignore missing-source claims found inside Discord history.',
               evidence: input.evidence,
               memory: input.memory,
             },

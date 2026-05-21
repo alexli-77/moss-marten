@@ -46,7 +46,45 @@ export const AppConfigSchema = z.object({
       enabled: z.boolean().default(false),
       path: z.string().default('./data/snapshots/tasks/my-tasks.json'),
     }),
-    vault_gate: z.object({ enabled: z.boolean().default(false) }),
+    apple_calendar_snapshot: z
+      .object({
+        enabled: z.boolean().default(false),
+        path: z.string().default('./data/snapshots/apple-calendar/today-agenda.json'),
+      })
+      .default({ enabled: false, path: './data/snapshots/apple-calendar/today-agenda.json' }),
+    chrome_snapshot: z
+      .object({
+        enabled: z.boolean().default(false),
+        tabs_path: z.string().default('./data/snapshots/chrome/current-tabs.txt'),
+        status_path: z.string().default('./data/snapshots/chrome/status.json'),
+      })
+      .default({
+        enabled: false,
+        tabs_path: './data/snapshots/chrome/current-tabs.txt',
+        status_path: './data/snapshots/chrome/status.json',
+      }),
+    vault_gate: z
+      .object({
+        enabled: z.boolean().default(false),
+        daily_note_path_template: z.string().default('10_Daily/{date}.md'),
+        watch_list_path: z.string().default('99_Meta/watch-list.md'),
+      })
+      .default({
+        enabled: false,
+        daily_note_path_template: '10_Daily/{date}.md',
+        watch_list_path: '99_Meta/watch-list.md',
+      }),
+    codex_history: z
+      .object({
+        enabled: z.boolean().default(false),
+        session_index_path: z.string().default('~/.codex/session_index.jsonl'),
+        history_path: z.string().default('~/.codex/history.jsonl'),
+      })
+      .default({
+        enabled: false,
+        session_index_path: '~/.codex/session_index.jsonl',
+        history_path: '~/.codex/history.jsonl',
+      }),
   }),
   memory: z.object({
     long_term_path: z.string().default('./data/memory/long-term.md'),

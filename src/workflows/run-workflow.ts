@@ -26,7 +26,7 @@ export async function runWorkflow(
     day: '2-digit',
   }).format(new Date());
 
-  const evidence = await collectEvidence(config, discord, channelId);
+  const evidence = await collectEvidence(config, discord, channelId, date);
   const memory = readMemory(config.memory.long_term_path, config.memory.daily_dir, date);
   const agent = config.llm.provider === 'codex' ? new CodexAgent(config) : new OpenAIAgent(config);
   const output = await agent.run({ workflow, date, evidence, memory });

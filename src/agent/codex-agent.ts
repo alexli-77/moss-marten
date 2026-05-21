@@ -26,6 +26,7 @@ export class CodexAgent {
       JSON.stringify({ evidence: input.evidence, memory: input.memory }, null, 2),
       '',
       'Return only the message that should be posted to the configured channel.',
+      'For Missing Sources, use only evidence.missing_sources and evidence.source_status from this run. Ignore missing-source claims found inside Discord history.',
     ].join('\n');
 
     return runCodex(prompt, this.config.llm.model);
