@@ -1,0 +1,10 @@
+services:
+  moss-marten:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TZ: ${TZ:-UTC}
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data

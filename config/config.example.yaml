@@ -1,0 +1,46 @@
+assistant:
+  name: "moss-marten"
+  language: "en"
+  tone: "direct, calm, practical"
+
+user:
+  display_name: "User"
+  timezone: "UTC"
+
+llm:
+  provider: "openai"
+  model: "gpt-4.1-mini"
+
+channels:
+  review:
+    type: "discord"
+    channel_id_env: "DISCORD_REVIEW_CHANNEL_ID"
+
+workflows:
+  daily_review:
+    enabled: true
+    time: "21:30"
+    channel: "review"
+  daily_plan:
+    enabled: true
+    time: "08:00"
+    channel: "review"
+
+sources:
+  discord_history:
+    enabled: true
+    limit: 50
+  github:
+    enabled: false
+  calendar_snapshot:
+    enabled: false
+    path: "./data/snapshots/calendar/today-agenda.json"
+  tasks_snapshot:
+    enabled: false
+    path: "./data/snapshots/tasks/my-tasks.json"
+  vault_gate:
+    enabled: false
+
+memory:
+  long_term_path: "./data/memory/long-term.md"
+  daily_dir: "./data/memory/daily"

@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.env
+.env.*
+!.env.example
+data
+config/config.yaml
+*.db
+*.sqlite
+*.sqlite3
+*.log
+.DS_Store
