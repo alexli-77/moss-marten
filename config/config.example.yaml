@@ -26,6 +26,21 @@ workflows:
     time: "08:00"
     channel: "review"
 
+triggers:
+  discord_commands:
+    enabled: true
+    channel: "review"
+    daily_review_patterns:
+      - "^start review$"
+      - "^run review$"
+      - "^daily review$"
+      - "^开始 review$"
+    daily_plan_patterns:
+      - "^start plan$"
+      - "^run plan$"
+      - "^today plan$"
+      - "^出 todo$"
+
 sources:
   discord_history:
     enabled: true

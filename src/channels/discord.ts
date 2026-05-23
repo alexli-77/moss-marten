@@ -1,4 +1,4 @@
-import { ChannelType, Client, GatewayIntentBits, TextChannel } from 'discord.js';
+import { ChannelType, Client, GatewayIntentBits, Message, TextChannel } from 'discord.js';
 
 export class DiscordChannel {
   private client: Client;
@@ -13,7 +13,7 @@ export class DiscordChannel {
     const token = process.env.DISCORD_BOT_TOKEN;
     if (!token) throw new Error('DISCORD_BOT_TOKEN is required');
     await this.client.login(token);
-    await new Promise<void>((resolve) => this.client.once('ready', () => resolve()));
+    await new Promise<void>((resolve) => this.client.once('clientReady', () => resolve()));
   }
 
   async stop(): Promise<void> {
@@ -32,6 +32,12 @@ export class DiscordChannel {
       .sort((a, b) => a.createdTimestamp - b.createdTimestamp)
       .map((message) => `${message.createdAt.toISOString()} ${message.author.username}: ${message.content}`)
       .filter((line) => line.trim().length > 0);
+  }
+
+  onMessage(handler: (message: Message) => void | Promise<void>): void {
+    this.client.on('messageCreate', (message) => {
+      void handler(message);
+    });
   }
 
   private async getTextChannel(channelId: string): Promise<TextChannel> {

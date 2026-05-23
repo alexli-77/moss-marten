@@ -3,6 +3,7 @@ import { DiscordChannel } from './channels/discord.js';
 import { loadConfig } from './config/load-config.js';
 import { scheduleWorkflows } from './scheduler/scheduler.js';
 import { openDatabase } from './storage/database.js';
+import { registerDiscordCommandTriggers } from './triggers/discord-commands.js';
 import { runWorkflow } from './workflows/run-workflow.js';
 
 async function main() {
@@ -29,6 +30,7 @@ async function main() {
     return;
   }
 
+  registerDiscordCommandTriggers(config, discord, db);
   scheduleWorkflows(config, discord, db);
   console.log(`${config.assistant.name} is running.`);
 }

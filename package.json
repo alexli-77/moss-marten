@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
+    "run:review": "node dist/index.js --run-once=daily_review",
+    "run:plan": "node dist/index.js --run-once=daily_plan",
+    "smoke": "node dist/index.js --smoke-test",
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit"
