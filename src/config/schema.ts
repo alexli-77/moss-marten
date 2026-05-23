@@ -32,6 +32,30 @@ export const AppConfigSchema = z.object({
       channel: z.string(),
     }),
   }),
+  triggers: z
+    .object({
+      discord_commands: z
+        .object({
+          enabled: z.boolean().default(false),
+          channel: z.string().default('review'),
+          daily_review_patterns: z.array(z.string()).default(['start review', 'run review', 'daily review']),
+          daily_plan_patterns: z.array(z.string()).default(['start plan', 'run plan', 'today plan']),
+        })
+        .default({
+          enabled: false,
+          channel: 'review',
+          daily_review_patterns: ['start review', 'run review', 'daily review'],
+          daily_plan_patterns: ['start plan', 'run plan', 'today plan'],
+        }),
+    })
+    .default({
+      discord_commands: {
+        enabled: false,
+        channel: 'review',
+        daily_review_patterns: ['start review', 'run review', 'daily review'],
+        daily_plan_patterns: ['start plan', 'run plan', 'today plan'],
+      },
+    }),
   sources: z.object({
     discord_history: z.object({
       enabled: z.boolean().default(true),

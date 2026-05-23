@@ -12,6 +12,8 @@ It is intentionally generic. The repository does not include personal memory, to
 
 - Runs a daily review workflow at a configured time.
 - Runs a daily planning workflow at a configured time.
+- Supports manual one-shot runs from the command line.
+- Supports optional Discord command triggers in the configured channel.
 - Reads recent Discord channel history as context.
 - Optionally reads GitHub assigned issues.
 - Optionally reads local JSON snapshots for calendars and tasks.
@@ -29,6 +31,16 @@ npm install
 npm run build
 npm start
 ```
+
+Manual triggers:
+
+```bash
+npm run run:review
+npm run run:plan
+npm run smoke
+```
+
+Discord triggers are configured in `triggers.discord_commands`. For example, the default template can run a review when a user posts `start review` in the configured channel.
 
 For Docker:
 

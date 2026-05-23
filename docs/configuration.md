@@ -35,6 +35,23 @@ workflows:
 
 Times are interpreted in `user.timezone`.
 
+## Triggers
+
+```yaml
+triggers:
+  discord_commands:
+    enabled: true
+    channel: "review"
+    daily_review_patterns:
+      - "^start review$"
+      - "^run review$"
+    daily_plan_patterns:
+      - "^today plan$"
+      - "^run plan$"
+```
+
+Patterns are regular expressions matched against messages in the configured Discord channel. Bot-authored messages are ignored.
+
 ## Sources
 
 Each data source can be enabled or disabled independently. Missing sources are passed to the LLM as missing context.
