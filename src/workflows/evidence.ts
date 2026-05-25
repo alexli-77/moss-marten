@@ -131,7 +131,7 @@ export async function collectEvidence(
     setSource('vault_snapshots', 'disabled');
   }
 
-  if (config.sources.vault_markdown.enabled && workflow === 'daily_plan') {
+  if (config.sources.vault_markdown.enabled) {
     const result = readVaultMarkdown({
       root: config.sources.vault_markdown.root,
       maxFiles: config.sources.vault_markdown.max_files,

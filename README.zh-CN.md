@@ -100,7 +100,7 @@ workflows:
 - `apple_calendar_snapshot`：本地 JSON 日历快照
 - `chrome_snapshot`：本地文本/JSON 浏览器快照
 - `vault_snapshots`：来自 `_snapshots` 或 `snapshots` 目录的按日期活动快照
-- `vault_markdown`：本地 vault 目录中的 markdown 笔记，用于 daily plan
+- `vault_markdown`：本地 vault 目录中的 markdown 笔记，作为稳定知识库
 - `vault_gate`：预留给通过 HTTP gateway 暴露笔记的集成
 - `codex_history`：本地 Codex session/history 文件
 

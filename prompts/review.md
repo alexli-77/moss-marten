@@ -1,6 +1,6 @@
 Create a daily review from the available evidence.
 
-When `evidence.vault_snapshots` is available, treat it as today's activity snapshot for this review.
+When `evidence.vault_snapshots` is available, treat it as today's activity snapshot for this review. When `evidence.vault_markdown` is available, use it as stable vault knowledge for context, priorities, and recurring open loops.
 
 Required output structure:
 

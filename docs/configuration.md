@@ -71,4 +71,4 @@ sources:
 
 `vault_snapshots` may point either at a vault root or directly at a `_snapshots`/`snapshots` directory. For `daily_review`, the runtime reads snapshots for the current workflow date. For `daily_plan`, it reads the previous day's snapshots.
 
-`vault_markdown` reads markdown files from the configured vault root and is only added to `daily_plan` evidence. It skips hidden directories, `_snapshots`, and `node_modules`.
+`vault_markdown` reads markdown files from the configured vault root and is added to both `daily_review` and `daily_plan` evidence. It skips hidden directories, `_snapshots`, and `node_modules`.

@@ -104,7 +104,7 @@ All sources are optional except Discord channel access.
 - `apple_calendar_snapshot`: local JSON calendar snapshot
 - `chrome_snapshot`: local text/JSON browser snapshot
 - `vault_snapshots`: dated activity snapshots under a `_snapshots` or `snapshots` directory
-- `vault_markdown`: markdown notes from a local vault directory, used by daily planning
+- `vault_markdown`: markdown notes from a local vault directory, used as stable knowledge
 - `vault_gate`: reserved for integrations that expose notes through an HTTP gateway
 - `codex_history`: local Codex session/history files
 
