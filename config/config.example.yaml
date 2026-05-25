@@ -31,10 +31,13 @@ triggers:
     enabled: true
     channel: "review"
     daily_review_patterns:
+      - "^review$"
       - "^start review$"
       - "^run review$"
       - "^daily review$"
       - "^开始 review$"
+      - "^复盘$"
+      - "^总结$"
     daily_plan_patterns:
       - "^start plan$"
       - "^run plan$"
@@ -43,7 +46,7 @@ triggers:
 
 sources:
   discord_history:
-    enabled: true
+    enabled: false
     limit: 50
   github:
     enabled: false
@@ -53,6 +56,15 @@ sources:
   tasks_snapshot:
     enabled: false
     path: "./data/snapshots/tasks/my-tasks.json"
+  vault_snapshots:
+    enabled: true
+    root: "./data/vault/_snapshots"
+    max_files: 20
+  vault_markdown:
+    enabled: true
+    root: "./data/vault"
+    max_files: 40
+    max_bytes_per_file: 12000
   vault_gate:
     enabled: false
 
