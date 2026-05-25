@@ -1,5 +1,7 @@
 Create a daily review from the available evidence.
 
+When `evidence.vault_snapshots` is available, treat it as today's activity snapshot for this review.
+
 Required output structure:
 
 Daily Review — {date}

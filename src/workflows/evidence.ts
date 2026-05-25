@@ -1,8 +1,9 @@
 import type { DiscordChannel } from '../channels/discord.js';
 import type { AppConfig } from '../config/schema.js';
 import { readGitHubAssignedIssues } from '../data-sources/github.js';
-import { readJsonSnapshot, readTextSnapshot } from '../data-sources/snapshots.js';
+import { readJsonSnapshot, readTextSnapshot, readVaultSnapshotsForDate, readVaultSnapshotsForPreviousDay } from '../data-sources/snapshots.js';
 import { readVaultGate } from '../data-sources/vault-gate.js';
+import { readVaultMarkdown } from '../data-sources/vault-markdown.js';
 
 type SourceState = 'available' | 'empty' | 'disabled' | 'missing' | 'error';
 
@@ -11,7 +12,13 @@ interface SourceStatus {
   detail?: string;
 }
 
-export async function collectEvidence(config: AppConfig, discord: DiscordChannel, channelId: string, date: string) {
+export async function collectEvidence(
+  config: AppConfig,
+  discord: DiscordChannel,
+  channelId: string,
+  date: string,
+  workflow: 'daily_review' | 'daily_plan',
+) {
   const evidence: Record<string, unknown> = {};
   const sources: Record<string, SourceStatus> = {};
 
@@ -91,6 +98,56 @@ export async function collectEvidence(config: AppConfig, discord: DiscordChannel
     );
   } else {
     setSource('chrome_snapshot', 'disabled');
+  }
+
+  if (config.sources.vault_snapshots.enabled) {
+    try {
+      const result =
+        workflow === 'daily_review'
+          ? readVaultSnapshotsForDate({
+              root: config.sources.vault_snapshots.root,
+              date,
+              maxFiles: config.sources.vault_snapshots.max_files,
+            })
+          : readVaultSnapshotsForPreviousDay({
+              root: config.sources.vault_snapshots.root,
+              currentDate: date,
+              maxFiles: config.sources.vault_snapshots.max_files,
+            });
+      if (result.available) {
+        evidence.vault_snapshots = {
+          date: result.date,
+          root: result.root,
+          files: result.files,
+        };
+        setSource('vault_snapshots', result.files.length > 0 ? 'available' : 'empty');
+      } else {
+        setSource('vault_snapshots', 'missing', result.reason);
+      }
+    } catch (error) {
+      setSource('vault_snapshots', 'error', error instanceof Error ? error.message : String(error));
+    }
+  } else {
+    setSource('vault_snapshots', 'disabled');
+  }
+
+  if (config.sources.vault_markdown.enabled && workflow === 'daily_plan') {
+    const result = readVaultMarkdown({
+      root: config.sources.vault_markdown.root,
+      maxFiles: config.sources.vault_markdown.max_files,
+      maxBytesPerFile: config.sources.vault_markdown.max_bytes_per_file,
+    });
+    if (result.available) {
+      evidence.vault_markdown = {
+        root: result.root,
+        files: result.files,
+      };
+      setSource('vault_markdown', result.files.length > 0 ? 'available' : 'empty');
+    } else {
+      setSource('vault_markdown', 'missing', result.reason);
+    }
+  } else {
+    setSource('vault_markdown', 'disabled');
   }
 
   if (config.sources.vault_gate.enabled) {

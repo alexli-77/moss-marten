@@ -55,3 +55,20 @@ Patterns are regular expressions matched against messages in the configured Disc
 ## Sources
 
 Each data source can be enabled or disabled independently. Missing sources are passed to the LLM as missing context.
+
+```yaml
+sources:
+  vault_snapshots:
+    enabled: true
+    root: "./data/vault/_snapshots"
+    max_files: 20
+  vault_markdown:
+    enabled: true
+    root: "./data/vault"
+    max_files: 40
+    max_bytes_per_file: 12000
+```
+
+`vault_snapshots` may point either at a vault root or directly at a `_snapshots`/`snapshots` directory. For `daily_review`, the runtime reads snapshots for the current workflow date. For `daily_plan`, it reads the previous day's snapshots.
+
+`vault_markdown` reads markdown files from the configured vault root and is only added to `daily_plan` evidence. It skips hidden directories, `_snapshots`, and `node_modules`.

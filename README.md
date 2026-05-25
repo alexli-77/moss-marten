@@ -101,9 +101,14 @@ All sources are optional except Discord channel access.
 - `github`: assigned GitHub issues, requires `GITHUB_TOKEN`
 - `calendar_snapshot`: local JSON file
 - `tasks_snapshot`: local JSON file
+- `apple_calendar_snapshot`: local JSON calendar snapshot
+- `chrome_snapshot`: local text/JSON browser snapshot
+- `vault_snapshots`: dated activity snapshots under a `_snapshots` or `snapshots` directory
+- `vault_markdown`: markdown notes from a local vault directory, used by daily planning
 - `vault_gate`: reserved for integrations that expose notes through an HTTP gateway
+- `codex_history`: local Codex session/history files
 
-Disabled or unavailable sources are reported to the model as missing sources.
+Unavailable sources are reported to the model as missing sources. Disabled sources are reported as disabled.
 
 ## Project Status
 

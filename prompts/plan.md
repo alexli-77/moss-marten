@@ -1,5 +1,7 @@
 Create a short plan for today from the available evidence.
 
+When `evidence.vault_snapshots` is available, treat it as yesterday's activity snapshot. When `evidence.vault_markdown` is available, use it as stable vault knowledge for priorities, context, and open loops.
+
 Required output structure:
 
 Today's Plan — {date}

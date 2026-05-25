@@ -87,6 +87,30 @@ export const AppConfigSchema = z.object({
         tabs_path: './data/snapshots/chrome/current-tabs.txt',
         status_path: './data/snapshots/chrome/status.json',
       }),
+    vault_snapshots: z
+      .object({
+        enabled: z.boolean().default(true),
+        root: z.string().default('./data/vault/_snapshots'),
+        max_files: z.number().int().positive().default(20),
+      })
+      .default({
+        enabled: true,
+        root: './data/vault/_snapshots',
+        max_files: 20,
+      }),
+    vault_markdown: z
+      .object({
+        enabled: z.boolean().default(true),
+        root: z.string().default('./data/vault'),
+        max_files: z.number().int().positive().default(40),
+        max_bytes_per_file: z.number().int().positive().default(12000),
+      })
+      .default({
+        enabled: true,
+        root: './data/vault',
+        max_files: 40,
+        max_bytes_per_file: 12000,
+      }),
     vault_gate: z
       .object({
         enabled: z.boolean().default(false),
